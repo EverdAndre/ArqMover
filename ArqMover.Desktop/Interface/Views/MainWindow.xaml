@@ -1,0 +1,211 @@
+<Window x:Class="ArqMover.Desktop.Interface.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ArqMover"
+        Height="700"
+        Width="1200"
+        MinHeight="640"
+        MinWidth="980"
+        Background="{StaticResource AppBackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="32">
+        <Border Background="{StaticResource SurfaceBrush}"
+                BorderBrush="{StaticResource BorderBrushSoft}"
+                BorderThickness="1"
+                CornerRadius="14"
+                Padding="28">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,28">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="ArqMover" Style="{StaticResource Titulos}"/>
+                        <TextBlock Text="Transfira arquivos ou gerencie backups."
+                                   Style="{StaticResource TextoApoio}"/>
+                    </StackPanel>
+
+                    <Border Grid.Column="1"
+                            Background="{StaticResource SurfaceMutedBrush}"
+                            BorderBrush="{StaticResource BorderBrushSoft}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="14,10"
+                            VerticalAlignment="Center">
+                        <TextBlock Text="Logs"
+                                   Foreground="{StaticResource PrimaryBrush}"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"/>
+                    </Border>
+                </Grid>
+
+                <Border Grid.Row="1"
+                        Background="{StaticResource SurfaceMutedBrush}"
+                        BorderBrush="{StaticResource BorderBrushSoft}"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Padding="18"
+                        Margin="0,0,0,18">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Modo de operação"
+                                   Style="{StaticResource Rotulos}"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,28,0"/>
+
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <RadioButton Content="Transferência normal"
+                                         Style="{StaticResource RotulosRadio}"
+                                         IsChecked="True"/>
+
+                            <RadioButton Content="Gestão de backups"
+                                         Style="{StaticResource RotulosRadio}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2"
+                        Background="{StaticResource SurfaceBrush}"
+                        BorderBrush="{StaticResource BorderBrushSoft}"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Padding="18"
+                        Margin="0,0,0,18">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="14"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="14"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Origem" Style="{StaticResource Rotulos}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox Text="C:\Origem"
+                                         Style="{StaticResource CampoTexto}"/>
+                                <Button Grid.Column="2"
+                                        Content="Procurar"
+                                        Style="{StaticResource BotaoSecundario}"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Destino" Style="{StaticResource Rotulos}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox Text="C:\Destino"
+                                         Style="{StaticResource CampoTexto}"/>
+                                <Button Grid.Column="2"
+                                        Content="Procurar"
+                                        Style="{StaticResource BotaoSecundario}"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="4" VerticalAlignment="Bottom">
+                            <TextBlock Text="Ação" Style="{StaticResource Rotulos}"/>
+                            <Button Content="Executar"
+                                    Style="{StaticResource BotaoPrimario}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0"
+                            Background="{StaticResource SurfaceMutedBrush}"
+                            BorderBrush="{StaticResource BorderBrushSoft}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="14,10"
+                            Margin="0,0,0,12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Status"
+                                       Foreground="{StaticResource TextBrush}"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,12,0"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="Aguardando execução"
+                                       Style="{StaticResource TextoApoio}"/>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1"
+                            Background="{StaticResource LogBackgroundBrush}"
+                            BorderBrush="#223049"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Background="#162033"
+                                    CornerRadius="9,9,0,0"
+                                    Padding="14,10">
+                                <TextBlock Text="Log"
+                                           Foreground="{StaticResource LogTextBrush}"
+                                           FontSize="14"
+                                           FontWeight="SemiBold"/>
+                            </Border>
+
+                            <TextBox Grid.Row="1"
+                                     Text="Nenhuma operação executada ainda."
+                                     Background="{StaticResource LogBackgroundBrush}"
+                                     Foreground="{StaticResource LogTextBrush}"
+                                     FontFamily="Consolas"
+                                     FontSize="14"
+                                     Padding="14"
+                                     BorderThickness="0"
+                                     AcceptsReturn="True"
+                                     VerticalScrollBarVisibility="Auto"
+                                     HorizontalScrollBarVisibility="Auto"
+                                     IsReadOnly="True"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
