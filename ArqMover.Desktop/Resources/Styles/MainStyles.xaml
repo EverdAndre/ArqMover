@@ -94,4 +94,31 @@
         <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}"/>
     </Style>
 
+    <Style x:Key="BarraProgresso" TargetType="ProgressBar">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="620"/>
+        <Setter Property="Background" Value="#E6ECF5"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Grid x:Name="TemplateRoot" ClipToBounds="True">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5"/>
+                        <Border x:Name="PART_Track"
+                                Background="Transparent"
+                                CornerRadius="5"/>
+                        <Decorator x:Name="PART_Indicator"
+                                   HorizontalAlignment="Left"
+                                   ClipToBounds="True">
+                            <Border Background="{TemplateBinding Foreground}"
+                                    CornerRadius="5"/>
+                        </Decorator>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

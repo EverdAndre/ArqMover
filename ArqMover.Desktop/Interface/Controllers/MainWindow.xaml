@@ -31,7 +31,7 @@
 
                     <StackPanel>
                         <TextBlock Text="ArqMover" Style="{StaticResource Titulos}"/>
-                        <TextBlock Text="Transfira arquivos ou gerencie backups."
+                        <TextBlock Text="Transfira arquivos ou gerencie seus backups."
                                    Style="{StaticResource TextoApoio}"/>
                     </StackPanel>
 
@@ -42,10 +42,9 @@
                             CornerRadius="8"
                             Padding="14,10"
                             VerticalAlignment="Center">
-                        <TextBlock Text="Logs"
-                                   Foreground="{StaticResource PrimaryBrush}"
-                                   FontSize="14"
-                                   FontWeight="SemiBold"/>
+                        <Button Content="Logs"
+                                        Click="MostrarLogs_Click"
+                                        Style="{StaticResource BotaoSecundario}"/>
                     </Border>
                 </Grid>
 
@@ -71,11 +70,14 @@
                         <StackPanel Grid.Column="1"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
-                            <RadioButton Content="Transferência normal"
+
+                            <RadioButton Content="Transferência de arquivos e pastas"
+                                         Checked="Transferencia_Checked"
                                          Style="{StaticResource RotulosRadio}"
                                          IsChecked="True"/>
 
                             <RadioButton Content="Gestão de backups"
+                                         Checked="Backups_Checked"
                                          Style="{StaticResource RotulosRadio}"/>
                         </StackPanel>
                     </Grid>
@@ -106,10 +108,11 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Text="C:\Origem"
+                                <TextBox Text="{Binding CaminhoOrigem, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource CampoTexto}"/>
                                 <Button Grid.Column="2"
                                         Content="Procurar"
+                                        Click="ProcurarOrigem_Click"
                                         Style="{StaticResource BotaoSecundario}"/>
                             </Grid>
                         </StackPanel>
@@ -123,17 +126,18 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Text="C:\Destino"
+                                <TextBox Text="{Binding CaminhoDestino, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource CampoTexto}"/>
                                 <Button Grid.Column="2"
                                         Content="Procurar"
+                                        Click="ProcurarDestino_Click"
                                         Style="{StaticResource BotaoSecundario}"/>
                             </Grid>
                         </StackPanel>
 
                         <StackPanel Grid.Column="4" VerticalAlignment="Bottom">
                             <TextBlock Text="Ação" Style="{StaticResource Rotulos}"/>
-                            <Button Content="Executar"
+                            <Button Content="Executar" Click="IniciarOperacao_Click"
                                     Style="{StaticResource BotaoPrimario}"/>
                         </StackPanel>
                     </Grid>
@@ -156,16 +160,34 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Text="Status"
-                                       Foreground="{StaticResource TextBrush}"
-                                       FontSize="14"
-                                       FontWeight="SemiBold"
-                                       Margin="0,0,12,0"/>
+                                        Foreground="{StaticResource TextBrush}"
+                                        FontSize="14"
+                                        FontWeight="SemiBold"
+                                        Margin="0,0,12,0"/>
                             <TextBlock Grid.Column="1"
-                                       Text="Aguardando execução"
-                                       Style="{StaticResource TextoApoio}"/>
+                                        Text="{Binding Status}"
+                                        Style="{StaticResource TextoApoio}"/>
+                            <StackPanel Grid.Column="2"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        Margin="12,0,0,0">
+                                <ProgressBar Minimum="0"
+                                             Maximum="100"
+                                             Value="{Binding Progresso}"
+                                             Style="{StaticResource BarraProgresso}"/>
+                                <TextBlock Text="{Binding Progresso, StringFormat={}{0}%}"
+                                           Foreground="{StaticResource MutedTextBrush}"
+                                           FontSize="12"
+                                           FontWeight="SemiBold"
+                                           MinWidth="36"
+                                           Margin="10,0,0,0"
+                                           VerticalAlignment="Center"
+                                           TextAlignment="Right"/>
+                            </StackPanel>
                         </Grid>
                     </Border>
 
@@ -191,7 +213,7 @@
                             </Border>
 
                             <TextBox Grid.Row="1"
-                                     Text="Nenhuma operação executada ainda."
+                                     Text="{Binding Log}"
                                      Background="{StaticResource LogBackgroundBrush}"
                                      Foreground="{StaticResource LogTextBrush}"
                                      FontFamily="Consolas"
