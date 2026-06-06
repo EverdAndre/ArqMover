@@ -32,8 +32,7 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
-[Ll]og/
-[Ll]ogs/
+
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -482,3 +481,9 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Logs
+*.log
+
+# Mantém estrutura da pasta Logs
+!Logs/

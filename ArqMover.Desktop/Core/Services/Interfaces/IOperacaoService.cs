@@ -4,5 +4,9 @@ namespace ArqMover.Desktop.Core.Services.Interfaces;
 
 public interface IOperacaoService
 {
-    void Executar(Transferencia transferencia);
+    Task ExecutarAsync(
+        Transferencia transferencia,
+        IProgress<int>? progresso = null,
+        CancellationToken cancellationToken = default
+    );
 }
