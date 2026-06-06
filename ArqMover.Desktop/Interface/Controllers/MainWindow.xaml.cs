@@ -16,7 +16,10 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         _logService = new LogService();
-        var operacaoService = new TransferenciaService(_logService);
+        var transferenciaService = new TransferenciaService(_logService);
+        var backupService = new BackupService(_logService, transferenciaService);
+        var operacaoService = new ModoOperacaoService(transferenciaService, backupService);
+
         _mainViewModel = new MainViewModel(operacaoService, _logService);
 
         InitializeComponent();
@@ -24,7 +27,6 @@ public partial class MainWindow : Window
         DataContext = _mainViewModel;
     }
 
-    //verifica modo de operação
     private void Transferencia_Checked(object sender, RoutedEventArgs e)
     {
         _mainViewModel.Modo = ModoOperacao.Transferencia;
@@ -35,7 +37,6 @@ public partial class MainWindow : Window
         _mainViewModel.Modo = ModoOperacao.Backup;
     }
 
-    // Procura origem
     private void ProcurarOrigem_Click(object sender, RoutedEventArgs e)
     {
         string caminhoSelecionado = FolderDialogService.ProcurarOrigem();
@@ -46,7 +47,6 @@ public partial class MainWindow : Window
         _mainViewModel.CaminhoOrigem = caminhoSelecionado;
     }
 
-    // Procura destino
     private void ProcurarDestino_Click(object sender, RoutedEventArgs e)
     {
         string caminhoSelecionado = FolderDialogService.ProcurarDestino();
@@ -57,13 +57,17 @@ public partial class MainWindow : Window
         _mainViewModel.CaminhoDestino = caminhoSelecionado;
     }
 
-    // inicia transferencia ao clicar no botão executar
-    private void IniciarOperacao_Click(object sender, RoutedEventArgs e)
+    private async void IniciarOperacao_Click(object sender, RoutedEventArgs e)
     {
-        _mainViewModel.Executar();
+        await _mainViewModel.ExecutarAsync();
     }
 
-    // Exibe logs ao clicar no botão logs
+    private void CancelarOperacao_Click(object sender, RoutedEventArgs e)
+    {
+        // encaminha o cancelamento solicitado pelo usuario para a ViewModel.
+        _mainViewModel.CancelarOperacao();
+    }
+
     private void MostrarLogs_Click(object sender, RoutedEventArgs e)
     {
         Process.Start(

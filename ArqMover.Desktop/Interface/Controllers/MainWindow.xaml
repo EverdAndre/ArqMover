@@ -73,12 +73,13 @@
 
                             <RadioButton Content="Transferência de arquivos e pastas"
                                          Checked="Transferencia_Checked"
-                                         Style="{StaticResource RotulosRadio}"
-                                         IsChecked="True"/>
+                                         Style="{StaticResource RotulosRadio}"/>
+
 
                             <RadioButton Content="Gestão de backups"
                                          Checked="Backups_Checked"
-                                         Style="{StaticResource RotulosRadio}"/>
+                                         Style="{StaticResource RotulosRadio}"
+                                         IsChecked="True"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -137,8 +138,16 @@
 
                         <StackPanel Grid.Column="4" VerticalAlignment="Bottom">
                             <TextBlock Text="Ação" Style="{StaticResource Rotulos}"/>
-                            <Button Content="Executar" Click="IniciarOperacao_Click"
+                            <!-- botao fica desabilitado enquanto a transferencia executa. -->
+                            <Button Content="Executar"
+                                    IsEnabled="{Binding PodeExecutar}"
+                                    Click="IniciarOperacao_Click"
                                     Style="{StaticResource BotaoPrimario}"/>
+                            <Button Content="Cancelar"
+                                    IsEnabled="{Binding PodeCancelar}"
+                                    Click="CancelarOperacao_Click"
+                                    Style="{StaticResource BotaoSecundario}"
+                                    Margin="0,8,0,0"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -175,6 +184,126 @@
                                         Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         Margin="12,0,0,0">
+                                <Grid Width="78"
+                                      Height="28"
+                                      Margin="0,0,10,0"
+                                      ClipToBounds="True">
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsExecutando}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+
+                                    <Canvas Width="78" Height="28">
+                                        <Path Fill="#162033"
+                                              Stroke="{StaticResource MutedTextBrush}"
+                                              StrokeThickness="1.4"
+                                              StrokeLineJoin="Round"
+                                              Data="M3,6 L6,3 L18,3 L21,6 L21,22 L3,22 Z"/>
+                                        <Path Stroke="{StaticResource MutedTextBrush}"
+                                              StrokeThickness="1"
+                                              Opacity="0.65"
+                                              Data="M6,7 L18,7 M6,20 L18,20"/>
+                                        <Ellipse Canvas.Left="8"
+                                                 Canvas.Top="10"
+                                                 Width="8"
+                                                 Height="8"
+                                                 Stroke="{StaticResource MutedTextBrush}"
+                                                 StrokeThickness="1.2"
+                                                 Opacity="0.85"/>
+                                        <Ellipse Canvas.Left="11"
+                                                 Canvas.Top="13"
+                                                 Width="2"
+                                                 Height="2"
+                                                 Fill="{StaticResource MutedTextBrush}"/>
+                                        <Ellipse Canvas.Left="16"
+                                                 Canvas.Top="18"
+                                                 Width="3"
+                                                 Height="3"
+                                                 Fill="#48D597"/>
+
+                                        <Path Fill="#162033"
+                                              Stroke="{StaticResource MutedTextBrush}"
+                                              StrokeThickness="1.4"
+                                              StrokeLineJoin="Round"
+                                              Data="M59,6 L62,3 L74,3 L77,6 L77,22 L59,22 Z"/>
+                                        <Path Stroke="{StaticResource MutedTextBrush}"
+                                              StrokeThickness="1"
+                                              Opacity="0.65"
+                                              Data="M62,7 L74,7 M62,20 L74,20"/>
+                                        <Ellipse Canvas.Left="64"
+                                                 Canvas.Top="10"
+                                                 Width="8"
+                                                 Height="8"
+                                                 Stroke="{StaticResource MutedTextBrush}"
+                                                 StrokeThickness="1.2"
+                                                 Opacity="0.85"/>
+                                        <Ellipse Canvas.Left="67"
+                                                 Canvas.Top="13"
+                                                 Width="2"
+                                                 Height="2"
+                                                 Fill="{StaticResource MutedTextBrush}"/>
+                                        <Ellipse Canvas.Left="72"
+                                                 Canvas.Top="18"
+                                                 Width="3"
+                                                 Height="3"
+                                                 Fill="#48D597"/>
+
+                                        <Line X1="25"
+                                              Y1="14"
+                                              X2="53"
+                                              Y2="14"
+                                              Stroke="{StaticResource MutedTextBrush}"
+                                              StrokeThickness="1"
+                                              StrokeDashArray="2,2"
+                                              Opacity="0.65"/>
+
+                                        <Rectangle Canvas.Left="0"
+                                                   Canvas.Top="8"
+                                                   Width="10"
+                                                   Height="12"
+                                                   RadiusX="2"
+                                                   RadiusY="2"
+                                                   Stroke="{StaticResource MutedTextBrush}"
+                                                   StrokeThickness="1.3"
+                                                   Fill="{StaticResource SurfaceMutedBrush}">
+                                            <Rectangle.RenderTransform>
+                                                <TranslateTransform X="24"/>
+                                            </Rectangle.RenderTransform>
+                                            <Rectangle.Style>
+                                                <Style TargetType="Rectangle">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsExecutando}" Value="True">
+                                                            <DataTrigger.EnterActions>
+                                                                <BeginStoryboard x:Name="AnimacaoTransferenciaArquivo">
+                                                                    <Storyboard RepeatBehavior="Forever">
+                                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.X"
+                                                                                         From="24"
+                                                                                         To="44"
+                                                                                         Duration="0:0:0.85"/>
+                                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                         From="0.35"
+                                                                                         To="1"
+                                                                                         AutoReverse="True"
+                                                                                         Duration="0:0:0.42"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </DataTrigger.EnterActions>
+                                                            <DataTrigger.ExitActions>
+                                                                <StopStoryboard BeginStoryboardName="AnimacaoTransferenciaArquivo"/>
+                                                            </DataTrigger.ExitActions>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                    </Canvas>
+                                </Grid>
                                 <ProgressBar Minimum="0"
                                              Maximum="100"
                                              Value="{Binding Progresso}"
